@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "./api";
 import { Link } from "react-router-dom";
 import Books from "./Components/Books/Books";
 import YearSelect from "./Components/yearselecter/YearSelect";
@@ -34,7 +34,7 @@ export default function LibraryFrontEnd() {
   // Fetch books
   const fetchBooks = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/books/");
+      const res = await api.get("/books/");
       setBooks(res.data);
     } catch (err) {
       console.error("Error fetching books:", err);
@@ -51,7 +51,7 @@ export default function LibraryFrontEnd() {
     if (!id) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:8000/books/${id}`, {
+      await api.delete(`/books/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       await fetchBooks();

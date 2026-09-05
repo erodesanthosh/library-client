@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function EditBooks() {
   // Fetch all books on page load
   const fetchBooks = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/books/");
+      const res = await api.get("/books/");
       setBooks(res.data);
     } catch (err) {
       console.error("Error loading books:", err);
@@ -72,8 +72,8 @@ function EditBooks() {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.put(
-        `http://localhost:8000/books/${id}`,
+      await api.put(
+        `/books/${id}`,
         {
           title: UpdateTitle,
           genre: UpdateGenre,

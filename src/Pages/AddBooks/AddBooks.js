@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
-import axios from 'axios'
+import api from '../../api'
 
 
 function AddBooks() {
@@ -14,7 +14,7 @@ function AddBooks() {
 
    const fetchBooks = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/books/");
+      const res = await api.get("/books/");
       setBooks(res.data);
     } catch (err) {
       console.error("Error loading books:", err);
@@ -30,8 +30,8 @@ function AddBooks() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "http://localhost:8000/books",
+      const response = await api.post(
+        "/books",
         {
           title,
           genre,
